@@ -1,4 +1,4 @@
-package org.aurora.epos.test;
+package org.aurora.epos.server;
 
 public class Globals {
 	public static final String VERSION = "TestMonkey v0.1";
