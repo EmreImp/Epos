@@ -1,4 +1,4 @@
-package org.aurora.epos.test;
+package org.aurora.epos.utils;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ public class PerlinNoise {
 		yOffset = y;
 	}
 
-	float[][] GeneratePerlinNoise(float[][] baseNoise, int octaveCount) {
+	public float[][] GeneratePerlinNoise(float[][] baseNoise, int octaveCount) {
 		int width = baseNoise.length;
 		int height = baseNoise[0].length;
 
@@ -95,7 +95,7 @@ public class PerlinNoise {
 		return smoothNoise;
 	}
 
-	float[][] GenerateWhiteNoise(int width, int height, int seed) {
+	public float[][] GenerateWhiteNoise(int width, int height, int seed) {
 		Random random = new Random(seed);
 		float[][] noise = GetEmptyArray(width, height);
 

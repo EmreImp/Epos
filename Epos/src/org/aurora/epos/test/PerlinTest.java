@@ -1,16 +1,17 @@
 package org.aurora.epos.test;
 
-	import org.lwjgl.BufferUtils;
-	import org.lwjgl.LWJGLException;
-	import org.lwjgl.Sys;
-	import org.lwjgl.input.Keyboard;
-	import org.lwjgl.input.Mouse;
-	import org.lwjgl.opengl.Display;
-	import org.lwjgl.opengl.DisplayMode;
-	import org.lwjgl.opengl.GL11;
-	import org.lwjgl.util.glu.GLU;
-	import java.nio.FloatBuffer;
-	import java.util.Random;
+	import org.aurora.epos.utils.PerlinNoise;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
+import java.nio.FloatBuffer;
+import java.util.Random;
 
 	public class PerlinTest {
 		boolean useWireframe = false;
@@ -20,8 +21,8 @@ package org.aurora.epos.test;
 		float resolution = 1; // 10 / resolution = size of grid tile
 		float maxHeight = 100;
 		int size = 64; // size of noise
-		int maxX = 3;
-		int maxY = 3;
+		int maxX = 1;
+		int maxY = 1;
 		float[] cameraPos = {-300,500,300};
 		float[][][][]noise = new float[0][0][0][0];
 
@@ -75,7 +76,7 @@ package org.aurora.epos.test;
 			// init OpenGL here
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadIdentity();
-			GLU.gluPerspective( 45.0f, (float)600/(float)800, 1.0f, 5000.0f );
+			GLU.gluPerspective( 45.0f*0.5f, (float)600/(float)800, 1.0f, 5000.0f );
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glShadeModel (GL11.GL_SMOOTH);
