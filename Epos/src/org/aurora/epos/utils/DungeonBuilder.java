@@ -17,11 +17,13 @@ public class DungeonBuilder{
 	//define the %chance to generate either a room or a corridor on the map
 	//BTW, rooms are 1st priority so actually it's enough to just define the chance
 	//of generating a room
-	private int chanceRoom = 75; 
-	private int chanceCorridor = 25;
+	private int chanceRoom = 90; // private int chanceCorridor = 10;
  
 	//our map
-	private int[] dungeon_map = { };
+	private int[][] dungeon_map = { };
+	public int []stairsUp=new int[2];
+	public int []stairsDown=new int[2];
+	
  
 	//the old seed from the RNG is saved in this one
 	private long oldseed = 0;
@@ -42,20 +44,18 @@ public class DungeonBuilder{
 	private String msgYSize = "Y size of dungeon: \t";
 	private String msgMaxObjects = "max # of objects: \t";
 	private String msgNumObjects = "# of objects made: \t";
-	private String msgHelp = "";
-	private String msgDetailedHelp = "";
  
  
 	//setting a tile's type
 	private void setCell(int x, int y, int celltype){
-		dungeon_map[x + xsize * y] = celltype;
+		dungeon_map[x][y] = celltype;
 	}
  
 	//returns the type of a tile
 	private int getCell(int x, int y){
-		return dungeon_map[x + xsize * y];
+		return dungeon_map[x][y];
 	}
- 
+	
 	//The RNG. the seed is based on seconds from the "java epoch" ( I think..)
 	//perhaps it's the same date as the unix epoch
 	private int getRand(int min, int max){
@@ -261,6 +261,8 @@ public class DungeonBuilder{
  
 	//used to print the map on the screen
 	public void showDungeon(){
+		System.out.println("Stairs down:"+stairsDown[0]+","+stairsDown[1]+
+								   " up:"+stairsUp[0]+","+stairsUp[1]);
 		for (int y = 0; y < ysize; y++){
 			for (int x = 0; x < xsize; x++){
 				//System.out.print(getCell(x, y));
@@ -303,7 +305,6 @@ public class DungeonBuilder{
 		if (inobj < 1) objects = 10;
 		else objects = inobj;
  
-		//justera kartans storlek, om den ????r st????rre eller mindre ????n "gr????nserna"
 		//adjust the size of the map, if it's smaller or bigger than the limits
 		if (inx < 3) xsize = 3;
 		else if (inx > xmax) xsize = xmax;
@@ -318,7 +319,7 @@ public class DungeonBuilder{
 		System.out.println(msgMaxObjects + objects);
  
 		//redefine the map var, so it's adjusted to our new map size
-		dungeon_map = new int[xsize * ysize];
+		dungeon_map = new int[xsize+1][ysize+1];
  
 		//start with making the "standard stuff" on the map
 		for (int y = 0; y < ysize; y++){
@@ -473,6 +474,8 @@ public class DungeonBuilder{
 					if (ways == 0){
 					//we're in state 0, let's place a "upstairs" thing
 						setCell(newx, newy, tileUpStairs);
+						stairsUp[0]=newx;
+						stairsUp[1]=newy;
 						state = 1;
 						break;
 					}
@@ -481,6 +484,8 @@ public class DungeonBuilder{
 					if (ways == 0){
 					//state 1, place a "downstairs"
 						setCell(newx, newy, tileDownStairs);
+						stairsDown[0]=newx;
+						stairsDown[1]=newy;
 						state = 10;
 						break;
 					}
