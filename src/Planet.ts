@@ -3,9 +3,8 @@ import { galacticObject } from "./galactivObject.js";
 
 export class Planet extends galacticObject {
     numberOfMoons:number
-    constructor(aSeed:Seed) {
+    constructor(aSeed:number[]) {
         super(aSeed)
-        this.generateName()
-        this.numberOfMoons = (this.theSeed.a&3)
+        this.numberOfMoons = (this.theSeed[0]&3)
     }
 }
