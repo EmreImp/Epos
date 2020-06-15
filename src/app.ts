@@ -3,7 +3,7 @@ import { System } from "./System.js";
 var canvas=<HTMLCanvasElement>document.getElementById("gameScreen")
 var ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
 let seed:number[]=[0,0,0]
-let galsize=256
+let galsize=1000
 let galaxy:Array<System>=new Array<System>()
 
 buildgalaxy(1)
@@ -23,9 +23,11 @@ function buildgalaxy(galaxynum:number) {
     /* Put galaxy data into array of structures */  
   for(syscount=0;syscount<galsize;++syscount) {
     let system=new System(seed)
-    console.log(system)
+    //console.log(system)
     galaxy[syscount]=system
   }
+  let index=galaxy.findIndex(x=>x.theName==="LAVE")
+  galaxy[index].drawSystem(ctx,10,10)
 }
 
 function rotatel(x:number)

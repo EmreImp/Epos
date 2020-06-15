@@ -2,7 +2,7 @@ import { System } from "./System.js";
 var canvas = document.getElementById("gameScreen");
 var ctx = canvas.getContext("2d");
 let seed = [0, 0, 0];
-let galsize = 256;
+let galsize = 1000;
 let galaxy = new Array();
 buildgalaxy(1);
 function buildgalaxy(galaxynum) {
@@ -19,9 +19,11 @@ function buildgalaxy(galaxynum) {
     /* Put galaxy data into array of structures */
     for (syscount = 0; syscount < galsize; ++syscount) {
         let system = new System(seed);
-        console.log(system);
+        //console.log(system)
         galaxy[syscount] = system;
     }
+    let index = galaxy.findIndex(x => x.theName === "LAVE");
+    galaxy[index].drawSystem(ctx, 10, 10);
 }
 function rotatel(x) {
     return (2 * (x & 127)) + (x >> 7);
